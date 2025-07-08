@@ -1,0 +1,117 @@
+!DOCTYPE html
+html lang=th
+head
+  meta charset=UTF-8
+  meta name=viewport content=width=device-width, initial-scale=1
+  titleระบบรายงานเขตรับผิดชอบtitle
+  style
+    body {
+      font-family 'Sarabun', sans-serif;
+      background-color #f9f9ff;
+      color #333;
+      max-width 600px;
+      margin auto;
+      padding 20px;
+    }
+    img.logo {
+      display block;
+      margin 0 auto 20px;
+      width 120px;
+    }
+    h2 {
+      text-align center;
+      color #444;
+    }
+    label {
+      font-weight bold;
+      display block;
+      margin-top 15px;
+    }
+    input, select, textarea {
+      width 100%;
+      padding 8px;
+      border 1px solid #ccc;
+      border-radius 6px;
+      margin-top 5px;
+    }
+    button {
+      margin-top 20px;
+      background-color #4CAF50;
+      color white;
+      padding 12px;
+      border none;
+      border-radius 6px;
+      cursor pointer;
+      width 100%;
+    }
+    buttonhover {
+      background-color #45a049;
+    }
+  style
+head
+body
+  img src=httpsdrive.google.comucexport=view&id=1U_KcVhnQr1CqoO1C7PXwPOBqX67v_FWa alt=โลโก้โรงเรียน class=logo
+  h2ระบบรายงานเขตรับผิดชอบh2
+
+  form id=cleaningForm
+    label for=dateวันที่label
+    input type=date id=date name=date required
+
+    label for=classroomชั้นเรียนlabel
+    select id=classroom name=classroom required
+      option value=-- กรุณาเลือก --option
+      optionป.1option
+      optionป.2option
+      optionป.3option
+      optionป.4option
+      optionป.5option
+      optionป.6option
+      optionม.1option
+      optionม.2option
+      optionม.3option
+    select
+
+    label for=areaเขตพื้นที่รับผิดชอบlabel
+    input type=text id=area name=area required
+
+    label for=cleanสภาพความสะอาดlabel
+    select id=clean name=clean required
+      option value=สะอาดสะอาดoption
+      option value=ไม่สะอาดไม่สะอาดoption
+    select
+
+    label for=detailsรายละเอียดเพิ่มเติม (ถ้าไม่สะอาด)label
+    textarea id=details name=detailstextarea
+
+    label for=suggestข้อเสนอแนะlabel
+    textarea id=suggest name=suggesttextarea
+
+    label for=nameชื่อผู้กรอกข้อมูลlabel
+    input type=text id=name name=name required
+
+    button type=submitส่งข้อมูลbutton
+  form
+
+  script
+    const scriptURL = httpsscript.google.commacrossAKfycby9xAEcxT_XBbtfb00WLcugDCW0BeGeU81haAegxKUDFvnLUFrzAtFg3uPmnrpUK2F5exec;
+    const form = document.getElementById(cleaningForm);
+
+    form.addEventListener(submit, e = {
+      e.preventDefault();
+      const formData = new FormData(form);
+      fetch(scriptURL, {
+        method POST,
+        body formData
+      })
+      .then(response = {
+        alert(ส่งข้อมูลสำเร็จ ✅);
+        form.reset();
+      })
+      .catch(error = {
+        alert(❌ ไม่สามารถส่งข้อมูลได้);
+        console.error(error);
+      });
+    });
+  script
+body
+html
