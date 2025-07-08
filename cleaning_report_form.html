@@ -2,100 +2,116 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>ระบบรายงานความสะอาด</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ระบบรายงานเขตรับผิดชอบ</title>
   <style>
-    body { font-family: 'Sarabun', sans-serif; padding: 20px; background-color: #f5faff; }
-    h2 { text-align: center; color: #2a5d9f; }
-    form { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    label { display: block; margin-top: 15px; }
-    input, select, textarea, button {
-      width: 100%; padding: 8px; margin-top: 5px;
-      border: 1px solid #ccc; border-radius: 5px;
-      font-size: 1em;
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #f9f9ff;
+      color: #333;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    img.logo {
+      display: block;
+      margin: 0 auto 20px;
+      width: 120px;
+    }
+    h2 {
+      text-align: center;
+      color: #444;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 5px;
     }
     button {
-      background-color: #2a5d9f; color: white; border: none;
-      margin-top: 20px; font-weight: bold;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
     }
-    .readonly { background-color: #e9ecef; }
+    button:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 <body>
+  <img src="https://drive.google.com/uc?export=view&id=1U_KcVhnQr1CqoO1C7PXwPOBqX67v_FWa" alt="โลโก้โรงเรียน" class="logo">
+  <h2>ระบบรายงานเขตรับผิดชอบ</h2>
 
-<h2>ระบบรายงานเขตรับผิดชอบโรงเรียน</h2>
+  <form id="cleaningForm">
+    <label for="date">วันที่</label>
+    <input type="date" id="date" name="date" required>
 
-<form id="cleanForm">
-  <label>วันที่</label>
-  <input type="text" id="date" name="date" class="readonly" readonly>
+    <label for="classroom">ชั้นเรียน</label>
+    <select id="classroom" name="classroom" required>
+      <option value="">-- กรุณาเลือก --</option>
+      <option>ป.1</option>
+      <option>ป.2</option>
+      <option>ป.3</option>
+      <option>ป.4</option>
+      <option>ป.5</option>
+      <option>ป.6</option>
+      <option>ม.1</option>
+      <option>ม.2</option>
+      <option>ม.3</option>
+    </select>
 
-  <label>ชั้นเรียน</label>
-  <select name="classroom" required>
-    <option value="">-- เลือกชั้นเรียน --</option>
-    <option value="ป.1">ป.1</option>
-    <option value="ป.2">ป.2</option>
-    <option value="ป.3">ป.3</option>
-    <option value="ป.4">ป.4</option>
-    <option value="ป.5">ป.5</option>
-    <option value="ป.6">ป.6</option>
-    <option value="ม.1">ม.1</option>
-    <option value="ม.2">ม.2</option>
-    <option value="ม.3">ม.3</option>
-  </select>
+    <label for="area">เขตพื้นที่รับผิดชอบ</label>
+    <input type="text" id="area" name="area" required>
 
-  <label>เขตพื้นที่รับผิดชอบ</label>
-  <input type="text" name="area" required>
+    <label for="clean">สภาพความสะอาด</label>
+    <select id="clean" name="clean" required>
+      <option value="สะอาด">สะอาด</option>
+      <option value="ไม่สะอาด">ไม่สะอาด</option>
+    </select>
 
-  <label>สภาพความสะอาด</label>
-  <select name="clean" required>
-    <option value="">-- เลือกสถานะ --</option>
-    <option value="สะอาด">สะอาด</option>
-    <option value="ไม่สะอาด">ไม่สะอาด</option>
-  </select>
+    <label for="details">รายละเอียดเพิ่มเติม (ถ้าไม่สะอาด)</label>
+    <textarea id="details" name="details"></textarea>
 
-  <label>รายละเอียดเพิ่มเติม</label>
-  <textarea name="details"></textarea>
+    <label for="suggest">ข้อเสนอแนะ</label>
+    <textarea id="suggest" name="suggest"></textarea>
 
-  <label>ข้อเสนอแนะ</label>
-  <textarea name="suggest"></textarea>
+    <label for="name">ชื่อผู้กรอกข้อมูล</label>
+    <input type="text" id="name" name="name" required>
 
-  <label>ชื่อผู้กรอกข้อมูล</label>
-  <input type="text" name="name" required>
+    <button type="submit">ส่งข้อมูล</button>
+  </form>
 
-  <button type="submit">ส่งข้อมูล</button>
-</form>
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycby9xAEcxT_XBbtfb00WLcugDCW0BeGeU81haAegxKUDFvnLUFrzAtFg3uPmnrpUK2F5/exec";
+    const form = document.getElementById("cleaningForm");
 
-<script>
-  // ฟังก์ชันแปลงวันที่เป็นรูปแบบไทย
-  function getThaiDate() {
-    const now = new Date();
-    const day = now.getDate().toString().padStart(2, '0');
-    const month = (now.getMonth() + 1).toString().padStart(2, '0');
-    const year = now.getFullYear() + 543;
-    return `${day}/${month}/${year}`;
-  }
-
-  document.getElementById('date').value = getThaiDate();
-
-  document.getElementById("cleanForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const data = new FormData(form);
-
-    fetch("https://script.google.com/macros/s/AKfycbyhmySze_aBrjNirYrGbqVS1sgf02Eiqp7IrTsWHiVLpnLAjPa4jmB_Y4TSHB6w70QP/exec", {
-      method: "POST",
-      body: data,
-    })
-    .then(res => res.text())
-    .then(data => {
-      alert("ส่งข้อมูลเรียบร้อยแล้ว");
-      form.reset();
-      document.getElementById('date').value = getThaiDate(); // รีเซ็ตวันใหม่
-    })
-    .catch(err => alert("เกิดข้อผิดพลาดในการส่งข้อมูล"));
-  });
-</script>
-
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      fetch(scriptURL, {
+        method: "POST",
+        body: formData
+      })
+      .then(response => {
+        alert("ส่งข้อมูลสำเร็จ ✅");
+        form.reset();
+      })
+      .catch(error => {
+        alert("❌ ไม่สามารถส่งข้อมูลได้");
+        console.error(error);
+      });
+    });
+  </script>
 </body>
 </html>
